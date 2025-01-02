@@ -1,0 +1,37 @@
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+import Public from './components/Public'
+import Login from './components/Login'
+import Private from './components/Private'
+import Profile from './components/Profile'
+import Dashboard from './components/Dashboard'
+import Home from './components/Home'
+
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Public />}/>
+        <Route path="login" element={<Login />}/>
+
+        <Route element={<Private/>}>
+          <Route path="home" element={<Home/>}/>
+
+          <Route path="dashboard">
+            <Route index element={<Dashboard/>}/> 
+            <Route path=":tentaID"/>
+          </Route>
+
+          <Route path="profile">
+            <Route index element={<Profile/>}/>
+          </Route>
+        </Route>
+
+      </Route>
+    </Routes> 
+    
+  );
+}
+
+export default App;
