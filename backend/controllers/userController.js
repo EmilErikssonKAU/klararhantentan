@@ -7,10 +7,14 @@ const bcrypt = require('bcrypt');
 // @route GET /users
 // @access Private
 const getAllUsers = asyncHandler(async (req, res) => {
+    // return all users without 'password' field, strip unnecessary data with lean
     const users = await User.find().select('-password').lean()
+
+    // if users.length is 0 or users is undefined return status 400
     if(!users?.length){
         return res.status(400).json({ message: 'No users found'});
     }
+    // return all users
     res.json(users)
 });
 
@@ -18,16 +22,17 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @route POST /users
 // @access Private
 const createNewUser = asyncHandler(async (req, res) => {
-    const { username, password} = req.body;
+    const { username, password, firstname, lastname, accountBalance} = req.body;
 
     // Confirm data
-    if(!username || !password){
-        return res.status(400).json({ message: 'All fields are required'});
+    if(!username || !password || !firstname || !lastname){
+        return res.status(400).json({ message: 'Missing required fields'});
     }
     
-    // check for duplicates
+    // check for duplicate usernames
     const duplicate = await User.findOne({ username }).lean().exec();
     
+    // if duplicate return status 409
     if(duplicate){
         return res.status(409).json({ message: 'Duplicate username'});
     }
@@ -35,11 +40,13 @@ const createNewUser = asyncHandler(async (req, res) => {
     // Hash password
     const hashedPwd = await bcrypt.hash(password, 10);
 
-    const userObject = { username, "password": hashedPwd};
+    // Create userObject
+    const userObject = { username, "password": hashedPwd, firstname, lastname, accountBalance};
 
     // Create and store new user
     const user = await User.create(userObject);
 
+    // Check if successful
     if(user){
         res.status(201).json({ message: `New user ${username} created`});
     } else {
@@ -52,30 +59,49 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-    const { username, password, id} = req.body;
+    const { username, password, id, firstname, lastname, accountBalance} = req.body;
 
     // Confirm data
     if(!id || !username){
-        return res.status(400).json({ message: 'All fields are required'});
+        return res.status(400).json({ message: 'Missing required fields'});
     }
 
+    // find user by id
     const user = await User.findById(id).exec();
 
+    // if user doesn't exist return status 400
     if(!user){
         return res.status(400).json({ message: 'User not found'});
     }
 
     // Check for duplicate
     const duplicate = await User.findOne({ username }).lean().exec()
-    // Allow updates to the original user
+
+    // if duplicate that is not the current user exists return status 409
     if( duplicate && duplicate?._id.toString() !== id){
         return res.status(409).json({ message: 'Duplicate username'});
     }
 
+    // Update username
     user.username = username;
 
+    // Update firstname
+    if(firstname){
+        user.firstname = firstname;
+    }
+
+    // Update lastname
+    if(lastname){
+        user.lastname = lastname;
+    }
+
+    // Update accountBalance
+    if(accountBalance){
+        user.accountBalance = accountBalance;
+    }
+
+    // Hash and update password
     if(password){
-        // Hash password
         user.password = await bcrypt.hash(password, 10);
     }
 

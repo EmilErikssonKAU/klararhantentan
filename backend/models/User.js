@@ -8,6 +8,18 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true
+    },
+    firstname:{
+        type: String,
+        required: true
+    },
+    lastname:{
+        type: String,
+        required: true
+    },
+    accountBalance:{
+        type: Number,
+        default: 0
     }
     
 });
