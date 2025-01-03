@@ -1,3 +1,20 @@
+:root {
+    --bonewhite: rgb(249, 246, 238);
+    --linkhover: rgb(26, 255, 0);
+}
+
 *{
-    background-color: beige;
+    background-color: var(--bonewhite);
+    font-family: Helvetica;
+    font-size: 16px;
+    font-weight: 525;
+    margin: 0px;
+}
+
+.content{
+    margin-top: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-height: 560px;
 }

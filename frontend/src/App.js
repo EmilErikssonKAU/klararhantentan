@@ -6,6 +6,7 @@ import Private from './components/Private'
 import Profile from './components/Profile'
 import Dashboard from './components/Dashboard'
 import Home from './components/Home'
+import Leaderboard from './components/Leaderboard'
 
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
 
           <Route path="profile">
             <Route index element={<Profile/>}/>
+          </Route>
+
+          <Route path="leaderboard">
+            <Route index element={<Leaderboard/>}/>
           </Route>
         </Route>
 
