@@ -1,15 +1,15 @@
-import { Outlet } from 'react-router-dom'
-import Navbar from './Navbar.js'
-import Footer from './Footer.js'
+import { Outlet } from "react-router-dom";
+import Navbar from "./Navbar.js";
+import Footer from "./Footer.js";
 
 const Private = () => {
   return (
     <>
-        <Navbar/>
-        <Outlet/>
-        <Footer/>
+      <Navbar />
+      <Outlet />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Private
+export default Private;

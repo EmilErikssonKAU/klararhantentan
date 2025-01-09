@@ -3,7 +3,7 @@
     --linkhover: rgb(26, 255, 0);
 }
 
-*{
+* {
     background-color: var(--bonewhite);
     font-family: Helvetica;
     font-size: 16px;
@@ -11,10 +11,13 @@
     margin: 0px;
 }
 
-.content{
-    margin-top: 80px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    min-height: 560px;
+body {
+    background-color: red;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+.root {
+    min-height: inherit;
+    width: inherit;
 }

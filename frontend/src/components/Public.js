@@ -1,9 +1,12 @@
+import { Outlet } from "react-router-dom";
+import Login from "./Login";
+
 const Public = () => {
   return (
-    <div>
-        Public component
+    <div className="wrapper-public">
+      <Login />
     </div>
-  )
-}
+  );
+};
 
-export default Public
+export default Public;
