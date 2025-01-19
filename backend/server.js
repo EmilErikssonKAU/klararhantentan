@@ -12,13 +12,21 @@ const mongoose = require("mongoose");
 const { logEvents } = require("./middleware/logger");
 const PORT = process.env.PORT || 3500;
 
+// MIDDDLEWARE EXECUTION ORDER
+// 1.
+
+// connect to the database
 connectDB();
 
-// use the imported logger
+// custom middleware for logging
 app.use(logger);
 
-// allows app to use and parse json data
+app.use(cors(corsOptions));
+
+// middleware allowing app to use and parse json data
 app.use(express.json());
+
+app.use(cookieParser());
 
 // define location of static-files
 app.use("/", express.static(path.join(__dirname, "/public")));
@@ -26,6 +34,7 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 // import routes
 app.use("/", require("./routes/root"));
 app.use("/users", require("./routes/userRoutes"));
+app.use("/auth", require("./routes/authRoutes"))
 
 // handle remaining requests
 app.all("*", (req, res) => {
@@ -47,9 +56,6 @@ app.all("*", (req, res) => {
 // use the imported errorHandler
 app.use(errorHandler);
 
-// to be explained
-app.use(cors(corsOptions));
-app.use(cookieParser);
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
