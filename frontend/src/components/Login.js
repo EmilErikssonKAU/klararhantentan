@@ -1,21 +1,46 @@
-import React from "react";
+import { useState, useEffect, useContext } from "react";
+import axios from "../api/axios"
+import AuthContext from "../context/AuthProvider";
+
+const LOGIN_URL = '/auth'
 
 const Login = () => {
+  const { setAuth } = useContext(AuthContext)
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try{
+      const response = await axios.post(LOGIN_URL, {username, password});
+      const accessToken = response.data.accessToken;
+      setAuth({ username, accessToken});
+      setSuccess(true);
+    }
+    catch(err){
+      alert("Wrong username or password!");
+    } 
+  } 
+
   return (
     <div className="wrapper-login">
-      <form>
+      <form onSubmit={handleSubmit}>
         <h1>Login</h1>
         <div className="input-box">
           <input 
-          placeholder="Enter your email..." 
-          required />
+          placeholder="Enter your username..." 
+          required 
+          onChange={(e) => {setUsername(e.target.value)}}/>
         </div>
 
         <div className="input-box">
           <input 
           placeholder="Enter your password..." 
           type="password"
-          required />
+          required 
+          onChange={(e) => {setPassword(e.target.value)}}/>
         </div>
 
         <button type="submit">Login</button>

@@ -8,18 +8,13 @@ const User = require('../models/User')
 // @route POST /auth
 // @access Public
 const login = asyncHandler(async (req, res) =>{
-    console.log("processing login request");
     // extract username and password
     const { username, password } = req.body
-
-    console.log("before field check");
 
     // check that both fields are filled
     if(!username || !password){
         return res.status(400).json({ message: 'All fields are required'})
     }
-
-    console.log("after field check");
 
     // find matching user
     const foundUser = await User.findOne({ username }).exec()
@@ -34,8 +29,6 @@ const login = asyncHandler(async (req, res) =>{
 
     if(!match) return res.status(401).json({ message: 'Unauthorized '})
 
-    console.log("before token creation");
-
     // Create accessToken
     const accessToken = jwt.sign(
         { "username": foundUser.username },
@@ -45,8 +38,8 @@ const login = asyncHandler(async (req, res) =>{
 
     // Create refreshToken
     const refreshToken = jwt.sign(
-        { "username": foundUser.username }, // payload
-        process.env.REFRESH_TOKEN_SECRET,   // secret key
+        { "username": foundUser.username },  // payload
+        process.env.REFRESH_TOKEN_SECRET,    // secret key
         { expiresIn: '1d'}                   // options
     )
 
