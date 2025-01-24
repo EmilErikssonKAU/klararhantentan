@@ -1,14 +1,17 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router"
 import axios from "../api/axios"
 import AuthContext from "../context/AuthProvider";
 
 const LOGIN_URL = '/auth'
+const HOME_URL = '/home'
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext)
+  const { auth, setAuth } = useContext(AuthContext)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [success, setSuccess] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,8 +19,9 @@ const Login = () => {
     try{
       const response = await axios.post(LOGIN_URL, {username, password});
       const accessToken = response.data.accessToken;
-      setAuth({ username, accessToken});
-      setSuccess(true);
+
+      setAuth({ "username": username, accessToken: accessToken});
+      navigate(HOME_URL);
     }
     catch(err){
       alert("Wrong username or password!");
