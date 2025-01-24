@@ -1,0 +1,39 @@
+footer{
+    background-color: darkgreen;
+    color: var(--bonewhite);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100vw;
+    margin: auto;
+}
+
+
+.social_links:hover{
+    background-color: var(--linkhover);
+}
+
+
+.icon-wrapepr{
+    width: 100%;
+    background-color: darkgreen;
+    display: flex;
+    justify-content: center;
+}
+.icon{
+    cursor: pointer;
+    border: none;
+    background-color: darkgreen;
+    width: 45px;
+    height: 45px;
+    margin: 0px 10px 5px 10px;
+}
+
+.cred{
+    text-align: center;
+    background-color: inherit;
+}
