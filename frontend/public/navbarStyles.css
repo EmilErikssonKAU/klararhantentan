@@ -1,4 +1,4 @@
-.nav_bar{
+.nav_bar {
     background-color: darkgreen;
     color: var(--bonewhite);
     display: flex;
@@ -11,11 +11,10 @@
     align-items: center;
     z-index: 100;
     min-height: 80px;
-    
+
 }
 
-
-.nav_logo{
+.nav_logo {
     background-color: inherit;
     font-size: 18px;
     font-weight: 600;
@@ -23,7 +22,7 @@
     padding: 0px 30px;
 }
 
-.nav_list{
+.nav_list {
     background-color: inherit;
     color: inherit;
     display: flex;
@@ -31,16 +30,16 @@
     align-items: center;
     list-style: none;
     padding: 0px 20px;
-  
+
 }
 
-.nav_list_item{
+.nav_list_item {
     background-color: inherit;
     color: inherit;
     padding: 25px 20px;
 }
 
-.nav_link{
+.nav_link {
     background-color: inherit;
     color: inherit;
     text-decoration: none;
@@ -50,6 +49,6 @@
     transition: all 300ms linear 0s;
 }
 
-.nav_link:hover{
+.nav_link:hover {
     background-color: var(--linkhover);
 }
