@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState} from "react"
+import { useNavigate } from "react-router-dom"
 import axios from "../api/axios"
 
 const TENTOR_URL = "/tentor"
 
 const Dashboard = () => {
   const [tentor, setTentor] = useState([])
+
+  const navigate = useNavigate();
 
   const fetchTentor = async () => {
     try {
@@ -31,7 +34,13 @@ const Dashboard = () => {
   return (
     <div className="wrapper_dashboard">
       {sortedTentor.map( (tenta) => (
-        <div>  <span> {tenta.coursename} </span> <span> {tenta.date} </span> </div>
+        <div
+          onClick={() => {
+          navigate(`/dashboard/${tenta.id}`, { state: { tenta } })
+        }}
+        >
+          <span> {tenta.coursename} </span> <span> {tenta.date} </span>
+        </div>
       ))}
     </div>
   )

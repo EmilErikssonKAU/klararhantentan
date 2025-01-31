@@ -8,6 +8,7 @@ import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
 import Leaderboard from "./components/Leaderboard";
 import RequireAuth from "./components/RequireAuth"
+import TentaComponent from "./components/TentaComponent";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
 
             <Route path="dashboard">
               <Route index element={<Dashboard />} />
-              <Route path=":tentaID" />
+              <Route path=":tentaID" element={<TentaComponent/>}/>
             </Route>
 
             <Route path="profile">
@@ -33,6 +34,7 @@ function App() {
             <Route path="leaderboard">
               <Route index element={<Leaderboard />} />
             </Route>
+            
           </Route>
         </Route>
       </Route>
