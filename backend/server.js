@@ -34,7 +34,8 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 // import routes
 app.use("/", require("./routes/root"));
 app.use("/users", require("./routes/userRoutes"));
-app.use("/auth", require("./routes/authRoutes"))
+app.use("/tentor", require("./routes/tentaRoutes"));
+app.use("/auth", require("./routes/authRoutes"));
 
 // handle remaining requests
 app.all("*", (req, res) => {

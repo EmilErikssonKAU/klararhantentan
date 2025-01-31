@@ -63,8 +63,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-  const { username, password, id, firstname, lastname, accountBalance } =
-    req.body;
+  const { username, password, id, firstname, lastname, accountBalance } = req.body;
 
   // Confirm data
   if (!id || !username) {
