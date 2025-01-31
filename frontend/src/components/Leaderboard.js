@@ -17,10 +17,6 @@ const Leaderboard = () => {
     }
   }
 
-  const sortUsers = (users) => {
-
-  }
-
   useEffect(() => {
     console.log("Attempting data fetch");
     fetchUsers();
@@ -35,7 +31,9 @@ const Leaderboard = () => {
   return (
     <div className="wrapper_leaderboard">
       {sortedUsers.map( (user) => (
-        <div>  <span> {user.username} </span> <span> {user.accountBalance} </span> </div>
+        <div>
+            <span> {user.username} </span> <span> {user.accountBalance} </span>
+        </div>
       ))}
     </div>
   )
