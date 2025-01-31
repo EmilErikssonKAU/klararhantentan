@@ -31,7 +31,7 @@ const Leaderboard = () => {
   return (
     <div className="wrapper_leaderboard">
       {sortedUsers.map( (user) => (
-        <div>
+        <div className="leaderboard_entry">
             <span> {user.username} </span> <span> {user.accountBalance} </span>
         </div>
       ))}

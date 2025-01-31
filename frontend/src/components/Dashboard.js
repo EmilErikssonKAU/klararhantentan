@@ -35,11 +35,12 @@ const Dashboard = () => {
     <div className="wrapper_dashboard">
       {sortedTentor.map( (tenta) => (
         <div
+          className="dashboard_entry"
           onClick={() => {
           navigate(`/dashboard/${tenta.id}`, { state: { tenta } })
         }}
         >
-          <span> {tenta.coursename} </span> <span> {tenta.date} </span>
+          <span> {tenta.coursename} </span> <span> {new Date(tenta.date).toLocaleDateString()}</span>
         </div>
       ))}
     </div>

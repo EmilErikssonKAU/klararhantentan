@@ -1,3 +1,41 @@
 .wrapper_leaderboard {
-    margin-top: 80px;
+    margin-top: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    /* Adds space between entries */
+}
+
+.leaderboard_entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    /* Darker background for contrast */
+    color: #ecf0f1;
+    /* Light text for readability */
+    width: 60vw;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.leaderboard_entry:hover {
+    background-color: #34495e;
+    transform: translateY(-2px);
+}
+
+.leaderboard_entry span {
+    flex: 1;
+    background-color: inherit;
+}
+
+.leaderboard_entry span:last-child {
+    text-align: right;
+    /* Align score to the right */
+    font-weight: bold;
 }
