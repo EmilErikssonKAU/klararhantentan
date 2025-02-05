@@ -20,7 +20,7 @@ const Login = () => {
       const response = await axios.post(LOGIN_URL, {username, password});
       const accessToken = response.data.accessToken;
 
-      setAuth({ "username": username, accessToken: accessToken});
+      setAuth({ username, password, accessToken});
       navigate(HOME_URL);
     }
     catch(err){
