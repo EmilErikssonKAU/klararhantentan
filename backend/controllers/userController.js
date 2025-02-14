@@ -5,16 +5,39 @@ const bcrypt = require("bcrypt");
 // @desc Get all users
 // @route GET /users
 // @access Private
-const getAllUsers = asyncHandler(async (req, res) => {
-  // return all users without 'password' field, strip unnecessary data with lean
-  const users = await User.find().select("-password").lean();
+const getUsers = asyncHandler(async (req, res) => {
+  const { username } = req.query;
 
-  // if users.length is 0 or users is undefined return status 400
-  if (!users?.length) {
-    return res.status(400).json({ message: "No users found" });
+  // no specific user requested
+  if (!username) {
+    // return all users without 'password' field, strip unnecessary data with lean
+    const users = await User.find().select("-password").lean();
+
+    // if users.length is 0 or users is undefined return status 400
+    if (!users?.length) {
+      return res.status(400).json({ message: "No users found" });
+    }
+    // return all users
+    res.json(users);
   }
-  // return all users
-  res.json(users);
+  // specific user requested
+  else {
+    // return all users without 'password' field, strip unnecessary data with lean
+    const user = await User.findOne({ username: username })
+      .select("-password")
+      .lean()
+      .exec();
+
+    console.log(user);
+
+    // if users not found return 400
+    if (!user) {
+      return res.status(400).json({ message: "No users found" });
+    }
+
+    // return all users
+    res.json(user);
+  }
 });
 
 // @desc Create new user
@@ -63,7 +86,8 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-  const { username, password, id, firstname, lastname, accountBalance } = req.body;
+  const { username, password, id, firstname, lastname, accountBalance } =
+    req.body;
 
   // Confirm data
   if (!id || !username) {
@@ -138,7 +162,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getAllUsers,
+  getUsers,
   createNewUser,
   updateUser,
   deleteUser,
